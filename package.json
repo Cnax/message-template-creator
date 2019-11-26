@@ -1,14 +1,18 @@
 {
   "name": "message-template-creator",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.7",
+  "private": false,
+  "main": "lib/message-template-creator.umd.min.js",
+  "author": "cnax <1462438798@qq.com>",
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "vue-cli-service serve",
+    "lib": "vue-cli-service build --target lib --name message-template-creator --dest lib packages/index.js"
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "element-ui": "^2.4.5",
     "vue": "^2.6.10"
   },
   "devDependencies": {
@@ -17,10 +21,12 @@
     "@vue/cli-service": "^4.0.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
+    "babel-plugin-component": "^1.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
+    "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.10"
   }
 }

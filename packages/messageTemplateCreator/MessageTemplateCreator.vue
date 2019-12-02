@@ -5,7 +5,6 @@
         class="msg-tpl-ctor-input"
         ref="msgTplCtorContent"
         :id="contentId"
-        @click="handleInputDelete"
         @input="handleInput"
       />
       <div class="msg-tpl-ctor-view">
@@ -14,32 +13,22 @@
     </div>
     <div class="right">
       <div class="msg-tpl-ctor-tools">
-        <el-button
+        <button
           v-for="item in tagList"
           :key="item"
           class="btn"
           @click="addTag(item)"
-        >{{ item }}</el-button>
+        >{{ item }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Button } from 'element-ui'
-
-// 生成随机的长度为10的字符串
-function getUuid () {
-  return Math.random().toString(36).substr(2)
-}
+import { getUuid, html2Text } from './helper'
 export default {
   name: 'MessageTemplateCreator',
-  components: { [Button.name]: Button },
   props: {
-    tag: {
-      type: String,
-      default: 'yj'
-    },
     value: {
       type: String,
       default: ''
@@ -47,6 +36,10 @@ export default {
     tagList: {
       type: Array,
       default: () => []
+    },
+    tagInputCls: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -60,14 +53,12 @@ export default {
   },
   computed: {
     viewContent () {
-      return this.value.replace(/\<yj\>/gi, '{').replace(/\<\/yj\>/gi, '}').replace(/<\/?.+?>/g, '')
+      return html2Text(this.value)
     }
   },
   mounted () {
     // 初始化数据
     this.currentText && (this.$refs.msgTplCtorContent.innerHTML = this.currentText)
-    // 创建模版标签的style
-    this.createStyle()
     document.addEventListener('selectionchange', this.handleSelect)
   },
   beforeDestroy () {
@@ -75,33 +66,12 @@ export default {
     document.removeEventListener('selectionchange', this.handleSelect)
   },
   methods: {
-    // 为自定义的模版标签添加样式，使之不可编辑
-    createStyle () {
-      let style = document.createElement('style')
-      style.innerHTML = `.msg-tpl-ctor ${this.tag} {
-        cursor: default;
-        -webkit-user-modify: read-only !important;
-        background-color: #ecf5ff;
-        display: inline-block;
-        padding: 0 10px;
-        margin: 0 5px;
-        line-height: 1.5;
-        font-size: 12px;
-        color: #409eff;
-        border: 1px solid #d9ecff;
-        border-radius: 4px;
-        box-sizing: border-box;
-        white-space: nowrap;
-        position: relative;
-      }`
-      this.$refs.msgTplCtor.appendChild(style)
-    },
     addTag (text) {
-      // 创建模版标签
-      let node = document.createElement(this.tag)
-      node.innerHTML = `${text}<i class="el-tag__close el-icon-close yj-close"></i>`
-      // 添加id便于删除
-      // node.id = getUuid()
+      const node = document.createElement('input')
+      node.setAttribute('type', 'button')
+      node.setAttribute('class', this.tagInputCls ? `tag-input ${this.tagInputCls}` : 'tag-input')
+      node.setAttribute('readonly', true)
+      node.setAttribute('value', text)
       this.insertNode(node)
     },
     // 在内容中插入标签
@@ -130,19 +100,6 @@ export default {
         this.savedRange = range
       }
     },
-    // 输入区域内的删除事件
-    handleInputDelete (e) {
-      // 命中当前标签的删除按钮时，移除当前标签
-      if (e.target && e.target.className.includes('yj-close')) {
-        e.target.parentNode.parentNode.removeChild(e.target.parentNode)
-        setTimeout(() => {
-          // 更新双向绑定
-          let target = this.$refs.msgTplCtorContent
-          this.updateData(target.innerHTML)
-          this.currentText = target.innerText
-        }, 0)
-      }
-    },
     handleInput (e) {
       this.updateData(e.target.innerHTML)
       this.currentText = e.target.innerText
@@ -152,15 +109,19 @@ export default {
 </script>
 
 <style lang="scss">
-.el-icon-close.yj-close {
-  position: absolute;
-  top: -7px;
-  right: -7px;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  background-color: #409eff;
-  border: 1px solid #409eff;
+.tag-input {
+  cursor: default !important;
+  background-color: #ecf5ff;
+  display: inline-block;
+  padding: 0 3px;
+  margin: 0 3px;
+  line-height: 1.5;
+  font-size: 12px;
+  color: #409eff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 0;
+  outline: 0;
 }
 </style>
 
@@ -212,7 +173,38 @@ $borderColor: #dcdfe6;
     padding: 10px;
     border: 1px solid $borderColor;
     .btn {
+      display: inline-block;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      background: #FFF;
+      border: 1px solid #DCDFE6;
+      color: #606266;
+      -webkit-appearance: none;
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      outline: 0;
       margin: 5px;
+      -webkit-transition: .1s;
+      transition: .1s;
+      font-weight: 500;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      padding: 9px 15px;
+      font-size: 12px;
+      border-radius: 3px;
+      &:focus, &:hover {
+        color: #409EFF;
+        border-color: #c6e2ff;
+        background-color: #ecf5ff;
+      }
+      &:active {
+        color: #3a8ee6;
+        border-color: #3a8ee6;
+        outline: 0;
+      }
     }
   }
 }

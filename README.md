@@ -20,5 +20,8 @@ npm run build
 npm run lint
 ```
 
+### demo 
+[demo](https://cnax.github.io/cnax.github.io-mtc/)
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

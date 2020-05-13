@@ -1,17 +1,20 @@
 <template>
   <div class="msg-tpl-ctor" ref="msgTplCtor">
     <div class="left">
+      <p>编辑区域：</p>
       <div
         class="msg-tpl-ctor-input"
         ref="msgTplCtorContent"
         :id="contentId"
         @input="handleInput"
       />
+      <p>预览区域： </p>
       <div class="msg-tpl-ctor-view">
         {{ viewContent }}
       </div>
     </div>
     <div class="right">
+      <p>标签列表：</p>
       <div class="msg-tpl-ctor-tools">
         <button
           v-for="item in tagList"

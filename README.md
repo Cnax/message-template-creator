@@ -49,7 +49,7 @@ Props
 | tagInputCls |  输入框中包裹标签的元素上的class名称  | 可以用来自定义包裹标签的样式 |
 
 ### demo 
-[demo](https://cnax.github.io/cnax.github.io-mtc/)
+[demo](https://cnax.github.io/)
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

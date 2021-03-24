@@ -1,14 +1,14 @@
 # message-template-creator
 
 ### 安装
-```javascript
+```
 npm i message-template-creator -S
 ```
 
 ### 使用
 
 一、全局使用
-```
+``` javaScript
 import MessageTemplateCreator from 'message-template-creator'
 
 Vue.use(MessageTemplateCreator)
@@ -16,7 +16,7 @@ Vue.use(MessageTemplateCreator)
 
 二、按需引入
 
-```
+``` javaScript
 <template>
   <div class="home">
     <p>一个简单消息模板的配置：</p>

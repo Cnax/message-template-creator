@@ -1,6 +1,6 @@
 {
   "name": "message-template-creator",
-  "version": "0.1.10",
+  "version": "0.1.12",
   "private": false,
   "main": "lib/message-template-creator.umd.min.js",
   "author": "cnax <1462438798@qq.com>",

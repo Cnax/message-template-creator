@@ -1,4 +1,4 @@
-import MessageTemplateCreator from './messageTemplateCreator/index'
+import MessageTemplateCreator from './messageTemplateCreator/MessageTemplateCreator'
 
 const components = [
   MessageTemplateCreator
@@ -7,9 +7,7 @@ const components = [
 const install = function (Vue) {
   if (install.installed) return
   install.installed = true
-  components.map(component => {
-    Vue.component(component.name, component)
-  })
+  Vue.component(MessageTemplateCreator.name, MessageTemplateCreator)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

@@ -26,7 +26,6 @@ Vue.use(MessageTemplateCreator)
 
 <script>
 import MessageTemplateCreator from 'message-template-creator'
-console.log('MessageTemplateCreator>  ', MessageTemplateCreator)
 export default {
   name: 'MessageTemplateCreatorPage',
   components: { MessageTemplateCreator },

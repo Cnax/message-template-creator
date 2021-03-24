@@ -1,9 +1,5 @@
 import MessageTemplateCreator from './messageTemplateCreator/MessageTemplateCreator'
 
-const components = [
-  MessageTemplateCreator
-]
-
 const install = function (Vue) {
   if (install.installed) return
   install.installed = true

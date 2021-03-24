@@ -1,4 +1,4 @@
-import MessageTemplateCreator from './messageTemplateCreator/MessageTemplateCreator'
+import MessageTemplateCreator from './messageTemplateCreator'
 
 const install = function (Vue) {
   if (install.installed) return
